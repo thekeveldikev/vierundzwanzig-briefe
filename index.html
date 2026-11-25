@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de" data-stil="tanne">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15392A">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="24 Briefe">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>24 Briefe</title>
+<link rel="icon" href="bilder/icon.png">
+<link rel="apple-touch-icon" href="bilder/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..650,0..100,0..1;1,9..144,300..650,0..100,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+
+<main class="seite" id="seite">
+  <header class="kopf">
+    <div class="zeile-klein"><span id="kopfJahr">Advent</span><span id="kopfDatum"></span></div>
+    <h1 class="kopf-titel">Vierundzwanzig Briefe <span class="fuer">für <em id="kopfName">Gioia</em></span></h1>
+  </header>
+
+  <section class="kranz-block" aria-label="Der Kranz">
+    <div class="kranz-rahmen">
+      <svg class="kranz" id="kranz" viewBox="-120 -120 240 240" aria-hidden="true"></svg>
+      <div class="kranz-mitte"><span class="kranz-zahl" id="kranzZahl">0</span><span class="zeile-klein kranz-von">von 24</span></div>
+    </div>
+  </section>
+
+  <section class="lage" id="lage" aria-live="polite"></section>
+
+  <section class="raster" id="raster" aria-label="Die vierundzwanzig Briefe"></section>
+
+  <footer class="fuss" id="fuss"></footer>
+</main>
+
+<!-- Bühne: hier öffnet sich ein Brief -->
+<div class="buehne" id="buehne" hidden>
+  <div class="buehne-grund" id="buehneGrund"></div>
+  <div class="buehne-ebene" id="buehneEbene"></div>
+  <nav class="leiste" id="leiste" hidden>
+    <button class="rund" id="zurueck" aria-label="Vorheriger Brief"><svg viewBox="0 0 24 24"><path d="M14.5 6 8.5 12l6 6"/></svg></button>
+    <button class="rund" id="schliessen" aria-label="Schließen"><svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></svg></button>
+    <button class="rund" id="weiter" aria-label="Nächster Brief"><svg viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></svg></button>
+  </nav>
+</div>
+
+<!-- Finale: der Kranz -->
+<div class="finale" id="finale" hidden>
+  <div class="finale-kopf">
+    <div class="kranz-rahmen finale-kranz-rahmen">
+      <svg class="kranz" id="finaleKranz" viewBox="-120 -120 240 240" aria-hidden="true"></svg>
+      <div class="kranz-mitte"><span class="finale-mitte-titel" id="finaleMitte"></span></div>
+    </div>
+    <p class="finale-zeile" id="finaleZeile" aria-live="polite"></p>
+  </div>
+  <div class="finale-gedicht" id="finaleGedicht"></div>
+  <div class="finale-fuss" id="finaleFuss">
+    <p class="zeile-klein"><span>24 Briefe · 24 Zeilen</span><span id="finaleJahr"></span></p>
+    <button class="knopf" id="finaleBrief" hidden>Brief Nr. 25 öffnen</button>
+    <button class="knopf leise" id="finaleZu">Zurück zum Kalender</button>
+  </div>
+</div>
+
+<!-- Einleitung (nur beim allerersten Öffnen) -->
+<div class="einleitung" id="einleitung" hidden>
+  <p class="einleitung-fuer">Für <em id="einleitungName">Gioia</em></p>
+  <div class="einleitung-brief" id="einleitungBrief"></div>
+  <p class="zeile-klein einleitung-tipp">Tippe auf das Siegel</p>
+</div>
+
+<!-- Sperre, falls der Schlüssel fehlt (nur veröffentlichte Fassung) -->
+<div class="tor" id="tor" hidden>
+  <p class="einleitung-fuer">Versiegelt.</p>
+  <p class="tor-text">Dieser Kalender lässt sich nur mit dem persönlichen Link öffnen.</p>
+</div>
+
+<div class="hinweis" id="hinweis" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
