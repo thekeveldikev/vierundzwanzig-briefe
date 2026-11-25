@@ -422,6 +422,8 @@ async function blattZeigen(t, von, { schnell = false, box = null } = {}) {
   blatt.innerHTML = `<div class="blatt-inhalt">${blattInhalt(t, schnell ? .25 : .62, schnell)}</div>`;
   const rahmen = document.createElement('div'); rahmen.className = 'blatt-rahmen';
   rahmen.appendChild(blatt); ebene.appendChild(rahmen);
+  if (document.fonts && document.fonts.status !== 'loaded') { try { await document.fonts.ready; } catch (e) {} }
+  einpassen($('.verse:not(.prosa)', blatt));
   const f = blatt.getBoundingClientRect();
   blatt.style.transformOrigin = '0 0';
   if (box) anim(box, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(50px)' }], { duration: 600, easing: 'ease-in' });
@@ -434,6 +436,17 @@ async function blattZeigen(t, von, { schnell = false, box = null } = {}) {
   if (box) box.remove();
   blatt.addEventListener('click', () => blatt.classList.add('fertig'));
   return blatt;
+}
+
+/* Schrift so weit verkleinern, dass kein Vers umbricht (nicht unter 14.5 px) */
+function einpassen(el, min = 14.5) {
+  if (!el) return;
+  el.style.fontSize = '';
+  const zeilen = $$('.vers', el);
+  if (!zeilen.length) return;
+  const umbricht = () => { const h = zeilen.map(z => z.offsetHeight), eine = Math.min(...h); return h.some(x => x > eine * 1.4); };
+  let gr = parseFloat(getComputedStyle(el).fontSize);
+  while (gr > min && umbricht()) { gr = Math.max(min, gr - .25); el.style.fontSize = gr + 'px'; }
 }
 
 async function oeffne(t, quelle) {
@@ -538,6 +551,7 @@ async function finale() {
   $('#finaleBrief').hidden = !(K.finale && K.finale.brief && K.finale.brief.trim());
   f.classList.remove('gelesen'); svg.classList.remove('lesen');
   f.hidden = false; f.scrollTop = 0;
+  einpassen($('#finaleGedicht'));
   document.body.classList.add('gesperrt');
   requestAnimationFrame(() => requestAnimationFrame(() => f.classList.add('da')));
   if (!zustand.finale) {
